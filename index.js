@@ -25,8 +25,22 @@ let connection = mysql.createConnection({
 
 db.connection.connect((err) => {
     if (err) {
-        console.error('Error connecting to the database:', err);
+        console.error('Error connecting to the database:', err.stack);
         return;
     }
     console.log('Connected to the MySQL database.');
 });
+
+//buat metode GET dan POST untuk menampilkan dan menambahkan data mahasiswa
+app.get('/mahasiswa', (req, res) => {
+    db.query('SELECT * FROM mahasiswa', (err, results) => {
+        if (err) {
+           console.error('Error fetching data:', err.stack);
+            res.status(500).send('Error fetching data');
+        } else {
+            res.json(results);
+        }       
+    });
+});
+
+
