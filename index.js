@@ -60,7 +60,7 @@ app.post('/mahasiswa', (req, res) => {
 });
 
 app.put('/mahasiswa/:id', (req, res) => {
-    const  userId  = req.params;
+    const  userId  = req.params.id;
     const { nama, nim, kelas } = req.body;
     db.query('UPDATE mahasiswa SET nama = ?, nim = ?, kelas = ? WHERE id = ?', [nama, nim, kelas, userId], (err, results) => {
         if (err) {
@@ -73,7 +73,7 @@ app.put('/mahasiswa/:id', (req, res) => {
 });
 
 app.delete('/mahasiswa/:id', (req, res) => {
-    const  userId  = req.params;
+    const  userId  = req.params.id;
     db.query('DELETE FROM mahasiswa WHERE id = ?', [userId], (err, results) => {
         if (err) {
             console.error(err);
