@@ -49,13 +49,25 @@ app.post('/mahasiswa', (req, res) => {
     if (!nama || !nim || !kelas) {
         return res.status(400).json({ message : 'Wjib diisi semua'});
     }
-    const query = 'INSERT INTO mahasiswa (nama, nim, kelas) VALUES (?, ?, ?)';
-    db.query(query, [nama, nim, kelas], (err, results) => {
+    db.query('INSERT INTO mahasiswa (nama, nim, kelas) VALUES (?, ?, ?)', [nama, nim, kelas], (err, results) => {
         if (err) {
             console.error(err);
-            return res.status(500).json({ message: 'Data Base Error' });
+            return res.status(500).json({ message: 'Error inserting data' });
         } else {
-            res.status(201).send('Data inserted successfully');
+            res.status(201).json({ message: 'Data inserted successfully'});
         }
-    }); 
+    });
+});
+
+app.put('/mahasiswa/:id', (req, res) => {
+    const { id } = req.params;
+    const { nama, nim, kelas } = req.body;
+    db.query('UPDATE mahasiswa SET nama = ?, nim = ?, kelas = ? WHERE id = ?', [nama, nim, kelas, id], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Error updating data' });
+        } else {
+            res.json({ message: 'Data updated successfully' } );
+        }
+    });
 });
