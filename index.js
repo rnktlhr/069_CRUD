@@ -15,17 +15,17 @@ app.listen(PORT, () => {
 });
 
 // Database connection
-let connection = mysql.createConnection({
+const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Luhur2004_',
     database: 'mahasiswa',
-    port: 3308
+    port: 3308 
 });
 
-db.connection.connect((err) => {
+db.connect((err) => {
     if (err) {
-        console.error('Error connecting to the database:', err.stack);
+        console.error('Error connecting to the database:' + err.stack);
         return;
     }
     console.log('Connected to the MySQL database.');
