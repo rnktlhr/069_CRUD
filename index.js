@@ -60,14 +60,26 @@ app.post('/mahasiswa', (req, res) => {
 });
 
 app.put('/mahasiswa/:id', (req, res) => {
-    const { id } = req.params;
+    const  userId  = req.params;
     const { nama, nim, kelas } = req.body;
-    db.query('UPDATE mahasiswa SET nama = ?, nim = ?, kelas = ? WHERE id = ?', [nama, nim, kelas, id], (err, results) => {
+    db.query('UPDATE mahasiswa SET nama = ?, nim = ?, kelas = ? WHERE id = ?', [nama, nim, kelas, userId], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: 'Error updating data' });
         } else {
             res.json({ message: 'Data updated successfully' } );
+        }
+    });
+});
+
+app.delete('/mahasiswa/:id', (req, res) => {
+    const  userId  = req.params;
+    db.query('DELETE FROM mahasiswa WHERE id = ?', [userId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Error deleting data' });
+        } else {
+            res.json({ message: 'Data deleted successfully' });
         }
     });
 });
